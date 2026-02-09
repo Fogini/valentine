@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Valentine's Letter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="envelope" id="envelope">
+        <div class="envelope-base"></div>
+        <div id="addressee" class="envelope-addressee">
+            To: <span>Kathi</span>
+        </div>
+        <div class="envelope-flap"></div>
+        <div class="seal" id="seal"></div>
+
+        <!-- WRAP all letter sections in the .letter element required by your CSS -->
+        <div class="letter">
+
+            <div class="letter-section">
+                <h1 class="center" style="text-align: center; color: #c41e3a; font-size: 50px;"><span>🌷</span> Valentine's <br> Day <span>🌷</span></h1>
+                <h1 class="center" style="text-align: center; font-size: 50px;"><span>💐</span></h1>
+                <div class="scroll-indicator">
+                    <h2 style="text-align: center; color: #666; font-size: 24px; font-style: italic;">Scroll Down</h2>
+                    <span class="arrow">↓</span>
+                </div>
+            </div>
+
+            <div class="letter-section">
+                <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">Me still thinking about our last date</p>
+                <div class="gif-wrapper">
+                    <img src="thinking.gif" alt="GIF">
+                    <img class="cats-snow" src="cats-snow.gif" alt="GIF">
+                </div>
+            </div>
+
+            <div class="letter-section">
+                <p style="text-align: center; color: #666; margin-bottom: 10px; font-size: 24px; font-style: italic;">Then I remember, we are far apart 😢</p>
+                <div class="gif-wrapper">
+                    <img class="astronaut" src="you-your-soulmate-gifkaro.gif" alt="GIF">
+                </div>
+            </div>
+
+            <div class="letter-section">
+                <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">Distance tried to ruin Valenine's Day,<br>but programming skills said otherwise</p>
+                <div class="gif-wrapper">
+                    <img src="hacker_on_your_team_best.gif" alt="GIF">
+                </div>
+            </div>
+
+            <div class="letter-section">
+                <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">So while I am already planning our next date…</p>
+                <div class="gif-wrapper">
+                    <img src="reading-the-map-pengu.gif" alt="GIF">
+                </div>
+            </div>
+
+            <div class="flip-box">
+                <div class="flip-box-inner" id="flip-box-inner">
+
+                    <div class="letter-section flip-box-front">
+                        <div class="valentine-question">
+                            <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">I wanted you to ask,</p>
+                            <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 30px; font-style: italic;">will you be my Valentine?</p>
+                            <div class="button-container" id="buttonContainer">
+                                <button class="yes-button" id="yesButton">Yes</button>
+                                <button class="no-button" id="noButton">No</button>
+                            </div>
+                            <img id="pigGif" class="pig" src="crying-see-how-sad-iam.gif" alt="GIF" style="display: none;">
+                            <img id="spongeGif" class="pig" src="spongebob-cant-wait.gif" alt="GIF" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="letter-section flip-box-back">
+                        <button id="cancel" class="letter-cancel" aria-label="Close letter">×</button>
+                        <h1 id="yay" class="center" style="margin-bottom: 10px; text-align: center; color: #c41e3a; font-size: 50px;">Yaaaay 🥰</h1>
+                        <img id="amifatcat-in-love" class="amifat-cat" src="amifatcat-in-love.gif" alt="GIF">
+                        <p id="ehhhh" class="center" style="margin-top: 30px; text-align: center; font-size: 60px; display: none;">Ehhhh…</p>
+                        <img id="cool-pengu" class="cool-pengu" src="cool_pengu.gif" alt="GIF" style="display: none;">
+                    </div>
+
+                </div>
+            </div>
+
+        </div> <!-- .letter -->
+    </div> <!-- .envelope -->
+
+    <script src="my_script.js"></script>
+</body>
+</html>

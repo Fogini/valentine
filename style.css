@@ -1,0 +1,441 @@
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+}
+
+.envelope {
+    position: relative;
+    width: calc(162px * 4);
+    height: calc(114px * 4);
+    perspective: 1000px;
+    margin-top: 10%;
+}
+
+.envelope-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #f4e4d4;
+    border: 2px solid #d4b49c;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.envelope-addressee {
+    position: absolute;
+    bottom: 22%;
+    right: 12%;
+
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 26px;
+    color: #c41e3a;
+
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+}
+
+.envelope-addressee span {
+    font-weight: bold;
+}
+
+
+.envelope-flap {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    transform-origin: top center;
+    transition: transform 1s ease-in-out;
+    z-index: 10;
+    overflow: visible; /* allow the border-shadow to show */
+}
+
+/* border triangle */
+.envelope-flap::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: #d4b49c;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 5;
+}
+
+/* flap face + fold line */
+.envelope-flap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(
+            to top,
+            transparent calc(50% - 1px),
+            rgba(0,0,0,0.08) 50%,
+            transparent calc(50% + 1px)
+        ),
+        linear-gradient(#f4e4d4, #f4e4d4);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 6;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(-180deg);
+}
+
+.seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+    border-radius: 50%;
+    z-index: 20;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.5);
+}
+
+.seal:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.7);
+}
+
+.seal::before {
+    content: '♥';
+    color: #ffd700;
+    font-size: 36px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.envelope.open .seal {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 85%;
+    background: #fffef7;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    overflow-y: scroll;
+    opacity: 0;
+    transition: all 1.2s ease-in-out;
+    transition-delay: 0.5s;
+    z-index: 5;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: auto;
+}
+
+.letter::-webkit-scrollbar {
+    width: 8px;
+}
+
+.letter::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.letter::-webkit-scrollbar-thumb {
+    background: #c41e3a;
+    border-radius: 4px;
+}
+
+.envelope.open .letter {
+    opacity: 1;
+}
+
+.letter-section {
+    width: 100%;
+    min-height: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    padding: 20px 0;
+    box-sizing: border-box; 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.letter-section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(0, 0, 0, 0.15),
+        rgba(255, 255, 255, 0.6),
+        rgba(0, 0, 0, 0.15),
+        transparent
+    );
+
+    box-shadow:
+        0 -1px 0 rgba(0, 0, 0, 0.08),
+        0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.letter-section:last-child {
+    border-bottom: none;
+}
+
+.letter-cancel {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+
+    background: none;
+    border: none;
+    padding: 0;
+
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.letter-cancel:hover {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.letter-cancel:focus {
+    outline: none;
+}
+
+
+/* Section 3 - Valentine Question */
+.valentine-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+}
+
+.valentine-question h2 {
+    font-size: 32px;
+    color: #c41e3a;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.button-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.yes-button {
+    padding: 20px 60px;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.yes-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+}
+
+.no-button {
+    position: absolute;
+    padding: 8px 20px;
+    font-size: 14px;
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(244, 67, 54, 0.4);
+    /*transition: all 0.2s ease;*/
+    z-index: 1;
+}
+
+.no-button:hover {
+    transform: scale(1.05);
+}
+
+.gif-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* bottom-align images */
+    height: 100%;
+    gap: 10px;
+}
+
+.gif-wrapper img:first-child {
+    align-self: flex-end; /* thinking.gif */
+}
+
+.gif-wrapper img {
+    max-height: 250px;
+    width: auto;
+}
+
+.astronaut {
+    width: 100%;
+    height: 111%;            /* compensate for upward shift */
+    object-fit: cover;
+    object-position: top;    /* keep top, cut bottom */
+    display: block;
+}
+
+.cats-snow {
+    object-fit: cover;
+    object-position: top;    /* keep top, cut bottom */
+    height: 80%;
+}
+
+.cool-pengu {
+    height: 90%;
+    width: auto;
+    align-self: center;
+}
+
+.amifat-cat {
+    height: 65%;
+    width: auto;
+    align-self: center;
+}
+
+.pig {
+    height: 35%;
+    width: auto;
+    z-index: 0;
+    align-self: flex-start;
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 8px;
+    }
+
+.arrow {
+    font-size: 32px;
+    line-height: 1;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.85);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Make sure flip box occupies the full letter-section area */
+.flip-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-back {
+  transform: rotateY(180deg);
+  background-color: #f5d5e5;
+}
+
+/* Hide all sections when Yes is clicked */
+.letter.show-back-only > .letter-section,
+.letter.show-back-only > .flip-box {
+    display: none;
+}
+
+/* Re-enable the flip box back only */
+.letter.show-back-only .flip-box {
+    display: block;
+}
+
+.letter.show-back-only .flip-box-front {
+    display: none;
+}
+
+.letter.show-back-only .flip-box-back {
+    display: flex;
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
