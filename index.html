@@ -11,76 +11,122 @@
 <body>
     <div class="envelope" id="envelope">
         <div class="envelope-base"></div>
+        
         <div id="addressee" class="envelope-addressee">
             To: <span>Kathi</span>
         </div>
+        
         <div class="envelope-flap"></div>
-        <div class="seal" id="seal"></div>
+        
+        <div class="seal" id="seal" role="button" tabindex="0" aria-label="Open envelope"></div>
 
-        <!-- WRAP all letter sections in the .letter element required by your CSS -->
-        <div class="letter">
+        <div class="letter" role="article" aria-label="Valentine's Day Letter">
 
-            <div class="letter-section">
-                <h1 class="center" style="text-align: center; color: #c41e3a; font-size: 50px;"><span>🌷</span> Valentine's <br> Day <span>🌷</span></h1>
-                <h1 class="center" style="text-align: center; font-size: 50px;"><span>💐</span></h1>
+            <!-- Section 1: Valentine's Day Title -->
+            <section class="letter-section">
+                <h1 class="section-title valentine-title">
+                    <span aria-hidden="true">🌷</span> 
+                    Valentine's Day 
+                    <span aria-hidden="true">🌷</span>
+                </h1>
+                <div class="section-title flower-emoji" aria-hidden="true">💐</div>
                 <div class="scroll-indicator">
-                    <h2 style="text-align: center; color: #666; font-size: 24px; font-style: italic;">Scroll Down</h2>
-                    <span class="arrow">↓</span>
+                    <p class="scroll-text">Scroll Down</p>
+                    <span class="arrow" aria-hidden="true">↓</span>
                 </div>
-            </div>
+            </section>
 
-            <div class="letter-section">
-                <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">Me still thinking about our last date</p>
+            <!-- Section 2: Thinking About Last Date -->
+            <section class="letter-section">
+                <p class="section-caption valentine-caption">
+                    Me still thinking about our last date
+                </p>
                 <div class="gif-wrapper">
-                    <img src="thinking.gif" alt="GIF">
-                    <img class="cats-snow" src="cats-snow.gif" alt="GIF">
+                    <img src="thinking.gif" alt="Person thinking deeply">
+                    <img class="cats-snow" src="cats-snow.gif" alt="Cats playing in snow">
                 </div>
-            </div>
+            </section>
 
-            <div class="letter-section">
-                <p style="text-align: center; color: #666; margin-bottom: 10px; font-size: 24px; font-style: italic;">Then I remember, we are far apart 😢</p>
+            <!-- Section 3: Distance -->
+            <section class="letter-section">
+                <p class="section-caption gray-caption">
+                    Then I remember, we are far apart 😢
+                </p>
                 <div class="gif-wrapper">
-                    <img class="astronaut" src="you-your-soulmate-gifkaro.gif" alt="GIF">
+                    <img class="astronaut" src="you-your-soulmate-gifkaro.gif" alt="Astronauts separated in space representing distance">
                 </div>
-            </div>
+            </section>
 
-            <div class="letter-section">
-                <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">Distance tried to ruin Valenine's Day,<br>but programming skills said otherwise</p>
+            <!-- Section 4: Programming Skills -->
+            <section class="letter-section">
+                <p class="section-caption valentine-caption multiline-caption">
+                    Distance tried to ruin Valentine's Day,<br>but programming skills said otherwise
+                </p>
                 <div class="gif-wrapper">
-                    <img src="hacker_on_your_team_best.gif" alt="GIF">
+                    <img src="hacker_on_your_team_best.gif" alt="Hacker typing on computer">
                 </div>
-            </div>
+            </section>
 
-            <div class="letter-section">
-                <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">So while I am already planning our next date…</p>
+            <!-- Section 5: Planning Next Date -->
+            <section class="letter-section">
+                <p class="section-caption valentine-caption">
+                    So while I am already planning our next date…
+                </p>
                 <div class="gif-wrapper">
-                    <img src="reading-the-map-pengu.gif" alt="GIF">
+                    <img src="reading-the-map-pengu.gif" alt="Penguin reading a map">
                 </div>
-            </div>
+            </section>
 
+            <!-- Section 6: The Question (Flip Box) -->
             <div class="flip-box">
                 <div class="flip-box-inner" id="flip-box-inner">
 
-                    <div class="letter-section flip-box-front">
+                    <!-- Front: The Question -->
+                    <section class="letter-section flip-box-front">
                         <div class="valentine-question">
-                            <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 24px; font-style: italic;">I wanted you to ask,</p>
-                            <p style="text-align: center; color: #c41e3a; margin-bottom: 10px; font-size: 30px; font-style: italic;">will you be my Valentine?</p>
-                            <div class="button-container" id="buttonContainer">
-                                <button class="yes-button" id="yesButton">Yes</button>
-                                <button class="no-button" id="noButton">No</button>
+                            <p class="question-intro valentine-caption">I wanted to ask you,</p>
+                            <p class="question-main valentine-caption">will you be my Valentine?</p>
+                            
+                            <div class="button-container" id="buttonContainer" role="group" aria-label="Answer buttons">
+                                <button class="yes-button" id="yesButton" aria-label="Yes, I will be your Valentine">
+                                    Yes
+                                </button>
+                                <button class="yes-button" id="yesButton2" aria-label="Yes, I will be your Valentine">
+                                    Yes
+                                </button>
+                                <button class="no-button" id="noButton" aria-label="No, I will not be your Valentine">
+                                    No
+                                </button>
                             </div>
-                            <img id="pigGif" class="pig" src="crying-see-how-sad-iam.gif" alt="GIF" style="display: none;">
-                            <img id="spongeGif" class="pig" src="spongebob-cant-wait.gif" alt="GIF" style="display: none;">
+                            
+                            <img id="pigGif" class="pig" src="crying-see-how-sad-iam.gif" alt="Crying pig showing sadness" aria-hidden="true">
+                            <img id="spongeGif" class="pig" src="spongebob-cant-wait.gif" alt="SpongeBob excited and can't wait" aria-hidden="true">
                         </div>
-                    </div>
+                    </section>
 
-                    <div class="letter-section flip-box-back">
-                        <button id="cancel" class="letter-cancel" aria-label="Close letter">×</button>
-                        <h1 id="yay" class="center" style="margin-bottom: 10px; text-align: center; color: #c41e3a; font-size: 50px;">Yaaaay 🥰</h1>
-                        <img id="amifatcat-in-love" class="amifat-cat" src="amifatcat-in-love.gif" alt="GIF">
-                        <p id="ehhhh" class="center" style="margin-top: 30px; text-align: center; font-size: 60px; display: none;">Ehhhh…</p>
-                        <img id="cool-pengu" class="cool-pengu" src="cool_pengu.gif" alt="GIF" style="display: none;">
-                    </div>
+                    <!-- Back: Success Response -->
+                    <section id="yesBack" class="letter-section flip-box-back success-section">
+                        <button id="cancel" class="letter-cancel" aria-label="Go back to letter">×</button>
+                        
+                        <h1 id="yay" class="success-heading">Yaaaay 🥰</h1>
+                        
+                        <img id="amifatcat-in-love" class="amifat-cat" src="amifatcat-in-love.gif" alt="Cat in love with heart eyes">
+                        
+                        <p id="ehhhh" class="ehhh-text">Ehhhh…</p>
+                        
+                        <img id="cool-pengu" class="cool-pengu" src="cool_pengu.gif" alt="Cool penguin with sunglasses">
+                    </section>
+
+                    <!-- Back: John Wick Warning -->
+                    <section id="johnWick" class="letter-section flip-box-back">
+                        <img src="cocking-pistol-john-wick.gif" alt="John Wick cocking a pistol - warning for saying no" class="warning-gif">
+                    </section>
+
+                    <!-- Back: Hell Yes -->
+                    <section id="yesHell" class="letter-section flip-box-back">
+                        <button id="cancel2" class="letter-cancel" aria-label="Go back to letter">×</button>
+                        <img src="yes-hell.gif" alt="Emphatic response" class="warning-gif">
+                    </section>
 
                 </div>
             </div>

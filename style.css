@@ -1,16 +1,69 @@
+/* ============================================================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   ============================================================================ */
+
+:root {
+    /* Color Palette */
+    --color-valentine-red: #c41e3a;
+    --color-dark-red: #8b0000;
+    --color-gold: #ffd700;
+    --color-paper: #fffef7;
+    --color-paper-border: #e0e0e0;
+    --color-envelope: #f4e4d4;
+    --color-envelope-border: #d4b49c;
+    --color-text-gray: #666;
+    --color-success-bg: #f5d5e5;
+    
+    /* Gradients */
+    --gradient-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-seal: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+    --gradient-yes-button: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    --gradient-no-button: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    
+    /* Envelope Dimensions (based on 162x114 ratio, scaled 4x) */
+    --envelope-width: calc(162px * 4);
+    --envelope-height: calc(114px * 4);
+    
+    /* Spacing & Sizing */
+    --seal-size: 70px;
+    --letter-padding: 20px;
+    --scroll-indicator-gap: 8px;
+    
+    /* Typography */
+    --font-family-serif: 'Georgia', 'Times New Roman', serif;
+    --font-size-title: 50px;
+    --font-size-caption: 24px;
+    --font-size-question: 30px;
+    --font-size-large: 60px;
+    
+    /* Animation Timing */
+    --transition-envelope: 1s ease-in-out;
+    --transition-letter: 1.2s ease-in-out;
+    --transition-flip: 0.8s;
+    --transition-button: 0.3s ease;
+}
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================ */
+
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-background);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Georgia', serif;
+    font-family: var(--font-family-serif);
 }
+
+/* ============================================================================
+   ENVELOPE COMPONENT
+   ============================================================================ */
 
 .envelope {
     position: relative;
-    width: calc(162px * 4);
-    height: calc(114px * 4);
+    width: var(--envelope-width);
+    height: var(--envelope-height);
     perspective: 1000px;
     margin-top: 10%;
 }
@@ -19,8 +72,8 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #f4e4d4;
-    border: 2px solid #d4b49c;
+    background: var(--color-envelope);
+    border: 2px solid var(--color-envelope-border);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -28,11 +81,9 @@ body {
     position: absolute;
     bottom: 22%;
     right: 12%;
-
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: var(--font-family-serif);
     font-size: 26px;
-    color: #c41e3a;
-
+    color: var(--color-valentine-red);
     z-index: 5;
     pointer-events: none;
     user-select: none;
@@ -42,18 +93,18 @@ body {
     font-weight: bold;
 }
 
-
+/* Envelope Flap */
 .envelope-flap {
     position: absolute;
     width: 100%;
     height: 50%;
     transform-origin: top center;
-    transition: transform 1s ease-in-out;
+    transition: transform var(--transition-envelope);
     z-index: 10;
-    overflow: visible; /* allow the border-shadow to show */
+    overflow: visible;
 }
 
-/* border triangle */
+/* Flap border (triangle) */
 .envelope-flap::before {
     content: '';
     position: absolute;
@@ -61,12 +112,12 @@ body {
     left: -2px;
     width: calc(100% + 4px);
     height: calc(100% + 4px);
-    background: #d4b49c;
+    background: var(--color-envelope-border);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     z-index: 5;
 }
 
-/* flap face + fold line */
+/* Flap face with fold line */
 .envelope-flap::after {
     content: '';
     position: absolute;
@@ -78,10 +129,10 @@ body {
         linear-gradient(
             to top,
             transparent calc(50% - 1px),
-            rgba(0,0,0,0.08) 50%,
+            rgba(0, 0, 0, 0.08) 50%,
             transparent calc(50% + 1px)
         ),
-        linear-gradient(#f4e4d4, #f4e4d4);
+        linear-gradient(var(--color-envelope), var(--color-envelope));
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     z-index: 6;
 }
@@ -90,18 +141,19 @@ body {
     transform: rotateX(-180deg);
 }
 
+/* Wax Seal */
 .seal {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+    width: var(--seal-size);
+    height: var(--seal-size);
+    background: var(--gradient-seal);
     border-radius: 50%;
     z-index: 20;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-button);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,7 +167,7 @@ body {
 
 .seal::before {
     content: '♥';
-    color: #ffd700;
+    color: var(--color-gold);
     font-size: 36px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -126,6 +178,10 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/* ============================================================================
+   LETTER COMPONENT
+   ============================================================================ */
+
 .letter {
     position: absolute;
     top: 50%;
@@ -133,12 +189,12 @@ body {
     transform: translate(-50%, -50%);
     width: 90%;
     height: 85%;
-    background: #fffef7;
-    border: 1px solid #e0e0e0;
+    background: var(--color-paper);
+    border: 1px solid var(--color-paper-border);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     overflow-y: scroll;
     opacity: 0;
-    transition: all 1.2s ease-in-out;
+    transition: all var(--transition-letter);
     transition-delay: 0.5s;
     z-index: 5;
     scroll-snap-type: y mandatory;
@@ -154,7 +210,7 @@ body {
 }
 
 .letter::-webkit-scrollbar-thumb {
-    background: #c41e3a;
+    background: var(--color-valentine-red);
     border-radius: 4px;
 }
 
@@ -162,20 +218,21 @@ body {
     opacity: 1;
 }
 
+/* Letter Sections */
 .letter-section {
     width: 100%;
     min-height: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     position: relative;
-    padding: 20px 0;
-    box-sizing: border-box; 
-
+    padding: var(--letter-padding) 0;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+/* Decorative section divider */
 .letter-section::after {
     content: "";
     position: absolute;
@@ -183,7 +240,6 @@ body {
     right: 0;
     bottom: 0;
     height: 2px;
-
     background: linear-gradient(
         to right,
         transparent,
@@ -192,7 +248,6 @@ body {
         rgba(0, 0, 0, 0.15),
         transparent
     );
-
     box-shadow:
         0 -1px 0 rgba(0, 0, 0, 0.08),
         0 1px 0 rgba(255, 255, 255, 0.6);
@@ -202,20 +257,19 @@ body {
     border-bottom: none;
 }
 
+/* Close/Cancel Button */
 .letter-cancel {
     position: absolute;
     top: 12px;
     right: 16px;
-
     background: none;
     border: none;
     padding: 0;
-
     font-size: 26px;
     line-height: 1;
     cursor: pointer;
-
     color: rgba(0, 0, 0, 0.6);
+    transition: color 0.2s ease;
 }
 
 .letter-cancel:hover {
@@ -226,8 +280,81 @@ body {
     outline: none;
 }
 
+/* ============================================================================
+   CONTENT SECTIONS - TYPOGRAPHY & LAYOUT
+   ============================================================================ */
 
-/* Section 3 - Valentine Question */
+/* Section Titles */
+.section-title {
+    text-align: center;
+}
+
+.valentine-title {
+    color: var(--color-valentine-red);
+    font-size: var(--font-size-title);
+}
+
+.flower-emoji {
+    font-size: var(--font-size-title);
+}
+
+/* Section Captions */
+.section-caption {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: var(--font-size-caption);
+    font-style: italic;
+}
+
+.valentine-caption {
+    color: var(--color-valentine-red);
+}
+
+.gray-caption {
+    color: var(--color-text-gray);
+}
+
+.multiline-caption {
+    line-height: 1.4;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: var(--scroll-indicator-gap);
+}
+
+.scroll-text {
+    text-align: center;
+    color: var(--color-text-gray);
+    font-size: var(--font-size-caption);
+    font-style: italic;
+}
+
+.arrow {
+    font-size: 32px;
+    line-height: 1;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.85);
+        opacity: 0.7;
+    }
+}
+
+/* ============================================================================
+   VALENTINE QUESTION SECTION
+   ============================================================================ */
+
 .valentine-question {
     display: flex;
     flex-direction: column;
@@ -237,13 +364,16 @@ body {
     position: relative;
 }
 
-.valentine-question h2 {
-    font-size: 32px;
-    color: #c41e3a;
-    margin-bottom: 50px;
-    text-align: center;
+.question-intro {
+    margin-bottom: 10px;
 }
 
+.question-main {
+    margin-bottom: 10px;
+    font-size: var(--font-size-question);
+}
+
+/* Button Container */
 .button-container {
     position: relative;
     width: 100%;
@@ -253,17 +383,18 @@ body {
     justify-content: center;
 }
 
+/* Yes Button */
 .yes-button {
     padding: 20px 60px;
     font-size: 24px;
     font-weight: bold;
-    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    background: var(--gradient-yes-button);
     color: white;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-    transition: all 0.3s ease;
+    transition: all var(--transition-button);
     z-index: 2;
 }
 
@@ -272,17 +403,22 @@ body {
     box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
 }
 
+/* Second Yes Button (initially hidden, replaces No button) */
+#yesButton2 {
+    display: none;
+}
+
+/* No Button */
 .no-button {
     position: absolute;
     padding: 8px 20px;
     font-size: 14px;
-    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    background: var(--gradient-no-button);
     color: white;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     box-shadow: 0 3px 10px rgba(244, 67, 54, 0.4);
-    /*transition: all 0.2s ease;*/
     z-index: 1;
 }
 
@@ -290,16 +426,20 @@ body {
     transform: scale(1.05);
 }
 
+/* ============================================================================
+   GIF & IMAGE DISPLAYS
+   ============================================================================ */
+
 .gif-wrapper {
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* bottom-align images */
+    align-items: flex-end;
     height: 100%;
     gap: 10px;
 }
 
 .gif-wrapper img:first-child {
-    align-self: flex-end; /* thinking.gif */
+    align-self: flex-end;
 }
 
 .gif-wrapper img {
@@ -307,33 +447,37 @@ body {
     width: auto;
 }
 
+/* Specific Image Styles */
 .astronaut {
     width: 100%;
-    height: 111%;            /* compensate for upward shift */
+    height: 111%; /* Compensate for upward shift */
     object-fit: cover;
-    object-position: top;    /* keep top, cut bottom */
+    object-position: top; /* Keep top, cut bottom */
     display: block;
 }
 
 .cats-snow {
     object-fit: cover;
-    object-position: top;    /* keep top, cut bottom */
+    object-position: top;
     height: 80%;
 }
 
 .cool-pengu {
+    display: none;
     height: 90%;
     width: auto;
     align-self: center;
 }
 
 .amifat-cat {
+    display: none;
     height: 65%;
     width: auto;
     align-self: center;
 }
 
 .pig {
+    display: none;
     height: 35%;
     width: auto;
     z-index: 0;
@@ -343,88 +487,43 @@ body {
     position: absolute;
 }
 
+.warning-gif {
+    width: auto;
+    height: 90%;
+    align-self: center;
+}
+
+/* ============================================================================
+   SUCCESS RESPONSE SECTION
+   ============================================================================ */
+
+.success-section {
+    background-color: var(--color-success-bg);
+}
+
+.success-heading {
+    display: none;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--color-valentine-red);
+    font-size: var(--font-size-title);
+}
+
+.ehhh-text {
+    display: none;
+    margin-top: 30px;
+    text-align: center;
+    font-size: var(--font-size-large);
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.scroll-indicator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    gap: 8px;
-    }
-
-.arrow {
-    font-size: 32px;
-    line-height: 1;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(0.85);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Make sure flip box occupies the full letter-section area */
-.flip-box {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-
-.flip-box-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-box-front, .flip-box-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-.flip-box-back {
-  transform: rotateY(180deg);
-  background-color: #f5d5e5;
-}
-
-/* Hide all sections when Yes is clicked */
-.letter.show-back-only > .letter-section,
-.letter.show-back-only > .flip-box {
-    display: none;
-}
-
-/* Re-enable the flip box back only */
-.letter.show-back-only .flip-box {
-    display: block;
-}
-
-.letter.show-back-only .flip-box-front {
-    display: none;
-}
-
-.letter.show-back-only .flip-box-back {
-    display: flex;
 }
 
 .fade-in {
@@ -437,5 +536,216 @@ body {
     }
     to {
         opacity: 1;
+    }
+}
+
+/* ============================================================================
+   FLIP BOX ANIMATION
+   ============================================================================ */
+
+.flip-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform var(--transition-flip);
+    transform-style: preserve-3d;
+}
+
+.flip-box-front,
+.flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-box-back {
+    transform: rotateY(180deg);
+}
+
+/* Hide all sections when showing only the flip box back */
+.letter.show-back-only > .letter-section,
+.letter.show-back-only > .flip-box {
+    display: none;
+}
+
+.letter.show-back-only .flip-box {
+    display: block;
+}
+
+.letter.show-back-only .flip-box-front {
+    display: none;
+}
+
+.letter.show-back-only .flip-box-back {
+    display: flex;
+}
+
+/* ============================================================================
+   MOBILE RESPONSIVE STYLES
+   ============================================================================ */
+
+/* Mobile devices (portrait and landscape) */
+@media only screen and (max-width: 768px) {
+    
+    /* Envelope Flap Height Reduction */
+    .envelope-flap {
+        height: 40%;                    /* Was 50%, now smaller for mobile */
+    }
+    
+    /* Seal Position - Keep at triangle's top even during open animation */
+    .seal {
+        top: 40%;                       /* Align with bottom of 40% flap */
+    }
+    
+    /* Font Size Adjustments */
+    :root {
+        --font-size-title: 40px;        /* Was 50px, now 80% */
+        --font-size-caption: 19px;      /* Was 24px, now ~79% */
+        --font-size-question: 24px;     /* Was 30px, now 80% */
+        --font-size-large: 48px;        /* Was 60px, now 80% */
+    }
+    
+    /* Addressee Font Size */
+    .envelope-addressee {
+        font-size: 21px;                /* Was 26px, now ~81% */
+    }
+    
+    /* Seal Size */
+    .seal {
+        width: 56px;                    /* Was 70px, now 80% */
+        height: 56px;
+    }
+    
+    .seal::before {
+        font-size: 29px;                /* Was 36px, now ~81% */
+    }
+    
+    /* Arrow in Scroll Indicator */
+    .arrow {
+        font-size: 26px;                /* Was 32px, now ~81% */
+    }
+    
+    /* Yes Button */
+    .yes-button {
+        padding: 16px 48px;             /* Was 20px 60px, now 80% */
+        font-size: 19px;                /* Was 24px, now ~79% */
+    }
+    
+    /* No Button */
+    .no-button {
+        padding: 6px 16px;              /* Was 8px 20px, now ~75% */
+        font-size: 11px;                /* Was 14px, now ~79% */
+    }
+    
+    /* Cancel Button */
+    .letter-cancel {
+        font-size: 21px;                /* Was 26px, now ~81% */
+    }
+    
+    /* GIF Size Reductions (20% smaller) */
+    .gif-wrapper img {
+        max-height: 200px;              /* Was 250px, now 80% */
+    }
+    
+    .astronaut {
+        height: 89%;                    /* Was 111%, adjusted proportionally */
+    }
+    
+    .cats-snow {
+        height: 64%;                    /* Was 80%, now 80% */
+    }
+    
+    .cool-pengu {
+        height: 72%;                    /* Was 90%, now 80% */
+    }
+    
+    .amifat-cat {
+        height: 52%;                    /* Was 65%, now 80% */
+    }
+    
+    .pig {
+        height: 28%;                    /* Was 35%, now 80% */
+    }
+    
+    .warning-gif {
+        height: 72%;                    /* Was 90%, now 80% */
+    }
+}
+
+/* Extra small mobile devices (portrait) */
+@media only screen and (max-width: 480px) {
+    
+    /* Envelope Flap - Even Smaller for Tiny Screens */
+    .envelope-flap {
+        height: 35%;                    /* Even smaller for very small screens */
+    }
+    
+    /* Seal Position - Keep at triangle's top even during open animation */
+    .seal {
+        top: 35%;                       /* Align with bottom of 35% flap */
+    }
+    
+    /* Further Font Size Reductions for Very Small Screens */
+    :root {
+        --font-size-title: 32px;        /* Even smaller for tiny screens */
+        --font-size-caption: 16px;
+        --font-size-question: 20px;
+        --font-size-large: 40px;
+    }
+    
+    /* Envelope Addressee */
+    .envelope-addressee {
+        font-size: 18px;
+    }
+    
+    /* Seal */
+    .seal {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .seal::before {
+        font-size: 24px;
+    }
+    
+    /* Buttons */
+    .yes-button {
+        padding: 12px 36px;
+        font-size: 16px;
+    }
+    
+    .no-button {
+        padding: 5px 12px;
+        font-size: 10px;
+    }
+    
+    /* GIFs - Additional 10% reduction for very small screens */
+    .gif-wrapper img {
+        max-height: 180px;              /* Further reduced */
+    }
+    
+    .cool-pengu {
+        height: 65%;
+    }
+    
+    .amifat-cat {
+        height: 47%;
+    }
+    
+    .pig {
+        height: 25%;
+    }
+    
+    .warning-gif {
+        height: 65%;
     }
 }
