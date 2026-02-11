@@ -162,7 +162,6 @@ function showExcitedGif() {
  * Moves the "No" button to a new random position
  */
 function moveNoButton() {
-    return;
     const containerRect = elements.buttonContainer.getBoundingClientRect();
     const buttonRect = elements.noButton.getBoundingClientRect();
     

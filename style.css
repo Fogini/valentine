@@ -686,17 +686,17 @@ body {
     
     /* Envelope Flap - Even Smaller for Tiny Screens */
     .envelope-flap {
-        height: 35%;                    /* Even smaller for very small screens */
+        height: 30%;                    /* Even smaller for very small screens */
     }
     
     /* Seal Position - Keep at triangle's top even during open animation */
     .seal {
-        top: 35%;                       /* Align with bottom of 35% flap */
+        top: 30%;                       /* Align with bottom of 35% flap */
     }
     
     /* Further Font Size Reductions for Very Small Screens */
     :root {
-        --font-size-title: 32px;        /* Even smaller for tiny screens */
+        --font-size-title: 28px;        /* Even smaller for tiny screens */
         --font-size-caption: 16px;
         --font-size-question: 20px;
         --font-size-large: 40px;
