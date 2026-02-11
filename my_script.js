@@ -73,12 +73,24 @@ const state = {
     noClickCount: 0,
     canJump: true,
     isFlipped: false,
-    yesHoverTimer: null
+    yesHoverTimer: null,
+    isTouchDevice: false
 };
 
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
+
+/**
+ * Detects if the device supports touch events (mobile/tablet)
+ */
+function isTouchDevice() {
+    return (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+    );
+}
 
 /**
  * Calculates Euclidean distance between two points
@@ -182,9 +194,11 @@ function moveNoButton() {
 
 /**
  * Handles mouse proximity detection for "No" button evasion
+ * Disabled on touch devices to allow tap/click to work
  */
 function handleMouseProximity(event) {
-    if (!state.canJump) return;
+    // Skip evasion on touch devices - allow normal clicking
+    if (state.isTouchDevice || !state.canJump) return;
     
     const buttonCenter = getElementCenter(elements.noButton);
     const distance = calculateDistance(
@@ -199,6 +213,16 @@ function handleMouseProximity(event) {
         moveNoButton();
         setTimeout(() => { state.canJump = true; }, CONFIG.BUTTON_JUMP_COOLDOWN);
     }
+}
+
+/**
+ * Handles mouseenter event on "No" button
+ * Disabled on touch devices to allow tap/click to work
+ */
+function handleNoButtonHover() {
+    // Skip evasion on touch devices - allow normal clicking
+    if (state.isTouchDevice) return;
+    moveNoButton();
 }
 
 // ============================================================================
@@ -377,7 +401,7 @@ function initializeEventListeners() {
     
     // "No" button interactions
     elements.buttonContainer.addEventListener('mousemove', handleMouseProximity);
-    elements.noButton.addEventListener('mouseenter', moveNoButton);
+    elements.noButton.addEventListener('mouseenter', handleNoButtonHover);
     elements.noButton.addEventListener('click', handleNoClick);
     
     // "Yes" button clicks
@@ -409,6 +433,9 @@ function initializeNoButtonPosition() {
  * Main initialization function - runs when page loads
  */
 function initialize() {
+    // Detect if this is a touch device
+    state.isTouchDevice = isTouchDevice();
+    
     initializeNoButtonPosition();
     initializeEventListeners();
 }

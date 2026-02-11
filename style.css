@@ -366,6 +366,7 @@ body {
 
 .question-intro {
     margin-bottom: 10px;
+    font-size: var(--font-size-caption);
 }
 
 .question-main {
